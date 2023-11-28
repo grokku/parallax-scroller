@@ -3,9 +3,9 @@ const regexInterpolateString = /\{\?\}/;
 /**
  * Debounce function.
  */
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: Array<unknown>) => unknown>(
   func: T,
-  wait: number
+  wait: number,
 ) => {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -66,5 +66,5 @@ export const substituteStyleValue = (template: string, values: Array<number>) =>
   values.reduce(
     (placeholder, value) =>
       placeholder.replace(regexInterpolateString, value.toString()),
-    template
+    template,
   );

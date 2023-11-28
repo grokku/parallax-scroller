@@ -3,15 +3,15 @@ import { parseKeyframeStyles, parseProp } from "./parser.js";
 describe("parseKeyframeStyles", () => {
   test("parses single style correctly", () => {
     expect(
-      parseKeyframeStyles("transform: translate(300px, 0) rotate(10deg);")
+      parseKeyframeStyles("transform: translate(300px, 0) rotate(10deg);"),
     ).toEqual([{ transform: "translate(300px, 0) rotate(10deg)" }]);
   });
 
   test("parses multiple styles correctly", () => {
     expect(
       parseKeyframeStyles(
-        "transform: translate(300px, 0) rotate(10deg); opacity:0;"
-      )
+        "transform: translate(300px, 0) rotate(10deg); opacity:0;",
+      ),
     ).toEqual([
       { transform: "translate(300px, 0) rotate(10deg)" },
       { opacity: "0" },
@@ -29,8 +29,8 @@ describe("parseKeyframeStyles", () => {
   test("parses styles with various whitespace and semicolon formats", () => {
     expect(
       parseKeyframeStyles(
-        "   transform: translate(300px, 0) rotate(10deg) ; opacity:0;   "
-      )
+        "   transform: translate(300px, 0) rotate(10deg) ; opacity:0;   ",
+      ),
     ).toEqual([
       { transform: "translate(300px, 0) rotate(10deg)" },
       { opacity: "0" },
@@ -70,8 +70,8 @@ describe("parseKeyframeStyles", () => {
   test("parses styles with complex values", () => {
     expect(
       parseKeyframeStyles(
-        "background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);"
-      )
+        "background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);",
+      ),
     ).toEqual([
       { background: "linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%)" },
     ]);
@@ -85,7 +85,7 @@ describe("parseKeyframeStyles", () => {
 
   test("handles input with mixed valid and invalid styles", () => {
     expect(
-      parseKeyframeStyles("color: blue; invalid; font-size: 14px;")
+      parseKeyframeStyles("color: blue; invalid; font-size: 14px;"),
     ).toEqual([{ color: "blue" }, { "font-size": "14px" }]);
   });
 });
@@ -95,7 +95,7 @@ describe("parseProp", () => {
     expect(
       parseProp({
         transform: "translate(300px, 0) rotate(10deg)",
-      })
+      }),
     ).toEqual({
       rule: "transform",
       template: "translate({?}px, {?}) rotate({?}deg)",
@@ -155,7 +155,7 @@ describe("parseProp", () => {
     expect(
       parseProp({
         boxShadow: "0px 0px 5px 0px rgba(0, 0, 0, 0.5)",
-      })
+      }),
     ).toEqual({
       rule: "boxShadow",
       template: "{?}px {?}px {?}px {?}px rgba({?}, {?}, {?}, {?})",

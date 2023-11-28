@@ -1,7 +1,7 @@
+import { scrollManager } from "./config";
+import { setStylesForKeyframes } from "./keyframes";
 import { loopUpdatePositions } from "./render";
 import { type ParallaxScrollerElement } from "./types";
-import { setStylesForKeyframes } from "./keyframes";
-import { scrollManager } from "./config";
 
 const mockElements: ParallaxScrollerElement[] = [
   {
@@ -76,12 +76,12 @@ describe("loopUpdatePositions", () => {
     expect(setStylesForKeyframes).toHaveBeenNthCalledWith(
       1,
       mockElements[0],
-      0.25
+      0.25,
     );
     expect(setStylesForKeyframes).toHaveBeenNthCalledWith(
       2,
       mockElements[1],
-      0.25
+      0.25,
     );
   });
 
@@ -96,12 +96,12 @@ describe("loopUpdatePositions", () => {
     expect(setStylesForKeyframes).toHaveBeenNthCalledWith(
       1,
       mockElements[0],
-      0.05
+      0.05,
     );
     expect(setStylesForKeyframes).toHaveBeenNthCalledWith(
       2,
       mockElements[1],
-      0.05
+      0.05,
     );
   });
 });

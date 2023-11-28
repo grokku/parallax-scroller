@@ -1,4 +1,4 @@
-import { setListener, notify } from "./listener.js";
+import { notify, setListener } from "./listener.js";
 import {
   PARALLAX_SCROLLER_STAGE,
   type ParallaxScrollerListenerParams,
@@ -22,7 +22,7 @@ describe("listener", () => {
 
   test("should throw an error if a non-function argument is passed", () => {
     expect(() => setListener("not a function" as unknown as jest.Mock)).toThrow(
-      "Listener must be a function"
+      "Listener must be a function",
     );
   });
 
