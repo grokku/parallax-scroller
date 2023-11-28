@@ -1,12 +1,12 @@
 import { scrollManager } from "./config";
 import {
-  setElementKeyframes,
-  sortKeyframes,
   applyFrameStyle,
+  setElementKeyframes,
   setStylesForKeyframes,
+  sortKeyframes,
 } from "./keyframes";
 import { setListener } from "./listener";
-import { type ParallaxScrollerElement, PARALLAX_SCROLLER_STAGE } from "./types";
+import { PARALLAX_SCROLLER_STAGE, type ParallaxScrollerElement } from "./types";
 
 const getMockElement = (name = "testElement"): ParallaxScrollerElement => ({
   name,
@@ -67,7 +67,11 @@ describe("setElementKeyframes", () => {
     expect(mockElement.styles.transform[1].constant).toEqual(1000);
 
     expect(() => {
-      setElementKeyframes(mockProps, mockElement, "invalid" as any);
+      setElementKeyframes(
+        mockProps,
+        mockElement,
+        "invalid" as unknown as number,
+      );
     }).toThrow('Scroll percentage must be an integer, got "invalid" instead');
   });
 });
@@ -156,11 +160,11 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, scrollPoint, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
 
     expect(mockElement.node.style.transform).toBe(
-      "translateX(49.999999999999964px)" // Floating-point arithmetic imprecision inherent in JavaScript
+      "translateX(49.999999999999964px)", // Floating-point arithmetic imprecision inherent in JavaScript
     );
   });
 
@@ -175,7 +179,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.05 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(false);
     expect(mockElement.node.style.opacity).toBe("0");
 
@@ -184,7 +188,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.25 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(false);
     expect(mockElement.node.style.opacity).toBe("1");
   });
@@ -200,7 +204,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.1 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.width).toBe("50%");
 
@@ -209,7 +213,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.2 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.width).toBe("100%");
   });
@@ -223,7 +227,7 @@ describe("applyFrameStyle", () => {
     expect(
       applyFrameStyle(mockElement, 0.1 * window.innerHeight, cssProp, {
         from: fromKeyframe,
-      })
+      }),
     ).toBe(false);
     expect(mockElement.node.style.opacity).toBe("");
 
@@ -231,7 +235,7 @@ describe("applyFrameStyle", () => {
     expect(
       applyFrameStyle(mockElement, 0.2 * window.innerHeight, cssProp, {
         from: fromKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.opacity).toBe("1");
 
@@ -239,7 +243,7 @@ describe("applyFrameStyle", () => {
     expect(
       applyFrameStyle(mockElement, 0.3 * window.innerHeight, cssProp, {
         from: fromKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.opacity).toBe("1");
   });
@@ -261,7 +265,7 @@ describe("applyFrameStyle", () => {
     expect(
       applyFrameStyle(mockElement, 0.1 * window.innerHeight, cssProp, {
         from: fromKeyframe,
-      })
+      }),
     ).toBe(false);
     expect(mockElement.node.style.display).toBe("");
 
@@ -270,7 +274,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.2 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.display).toBe("block");
 
@@ -279,7 +283,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.3 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.display).toBe("none");
 
@@ -288,7 +292,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.4 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.display).toBe("none");
   });
@@ -304,7 +308,7 @@ describe("applyFrameStyle", () => {
       applyFrameStyle(mockElement, 0.15 * window.innerHeight, cssProp, {
         from: fromKeyframe,
         to: toKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.display).toBe("block");
   });
@@ -318,7 +322,7 @@ describe("applyFrameStyle", () => {
     expect(
       applyFrameStyle(mockElement, 0.15 * window.innerHeight, cssProp, {
         from: fromKeyframe,
-      })
+      }),
     ).toBe(true);
     expect(mockElement.node.style.display).toBe("block");
   });
@@ -440,8 +444,8 @@ describe("setStylesForKeyframes", () => {
     // Scrolling forward to 10%
     setStylesForKeyframes(mockElement, 0.1);
     expect(mockListener).toHaveBeenNthCalledWith(1, {
-      name: "mockElement",
       checkpoint: 10,
+      name: "mockElement",
       stage: PARALLAX_SCROLLER_STAGE.scrollForward,
     });
 
@@ -460,24 +464,24 @@ describe("setStylesForKeyframes", () => {
     // Scrolling back to 9%
     setStylesForKeyframes(mockElement, 0.09);
     expect(mockListener).toHaveBeenNthCalledWith(2, {
-      name: "mockElement",
       checkpoint: 10,
+      name: "mockElement",
       stage: PARALLAX_SCROLLER_STAGE.scrollBackward,
     });
 
     // Scrolling forward to 11%
     setStylesForKeyframes(mockElement, 0.11);
     expect(mockListener).toHaveBeenNthCalledWith(3, {
-      name: "mockElement",
       checkpoint: 10,
+      name: "mockElement",
       stage: PARALLAX_SCROLLER_STAGE.scrollForward,
     });
 
     // Scrolling forward to 50%
     setStylesForKeyframes(mockElement, 0.5);
     expect(mockListener).toHaveBeenNthCalledWith(4, {
-      name: "mockElement",
       checkpoint: 50,
+      name: "mockElement",
       stage: PARALLAX_SCROLLER_STAGE.scrollForward,
     });
 
@@ -488,16 +492,16 @@ describe("setStylesForKeyframes", () => {
     // Scrolling back to 40%
     setStylesForKeyframes(mockElement, 0.4);
     expect(mockListener).toHaveBeenNthCalledWith(5, {
-      name: "mockElement",
       checkpoint: 50,
+      name: "mockElement",
       stage: PARALLAX_SCROLLER_STAGE.scrollBackward,
     });
 
     // Scrolling back to 1%
     setStylesForKeyframes(mockElement, 0.01);
     expect(mockListener).toHaveBeenNthCalledWith(6, {
-      name: "mockElement",
       checkpoint: 10,
+      name: "mockElement",
       stage: PARALLAX_SCROLLER_STAGE.scrollBackward,
     });
   });

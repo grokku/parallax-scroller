@@ -1,14 +1,14 @@
 import {
-  interpolate,
-  substituteStyleValue,
   calculatePageScrollPercent,
   debounce,
+  interpolate,
+  substituteStyleValue,
 } from "./utils";
 
 describe("debounce", () => {
   jest.useFakeTimers();
   let func: jest.Mock;
-  let debouncedFunc: Function;
+  let debouncedFunc: (args?: unknown) => unknown;
 
   beforeEach(() => {
     func = jest.fn();
@@ -56,25 +56,25 @@ describe("interpolate", () => {
 describe("substituteStyleValue", () => {
   test("should replace multiple placeholders correctly", () => {
     expect(substituteStyleValue("translate({?}px, {?}px)", [100, 200])).toBe(
-      "translate(100px, 200px)"
+      "translate(100px, 200px)",
     );
   });
 
   test("should return the original string if there are no placeholders", () => {
     expect(substituteStyleValue("translateX(100px)", [200])).toBe(
-      "translateX(100px)"
+      "translateX(100px)",
     );
   });
 
   test("should ignore extra values if there are more values than placeholders", () => {
     expect(substituteStyleValue("translateX({?}px)", [100, 200])).toBe(
-      "translateX(100px)"
+      "translateX(100px)",
     );
   });
 
   test("should leave placeholders unchanged if there are not enough values", () => {
     expect(substituteStyleValue("translate({?}px, {?}px)", [100])).toBe(
-      "translate(100px, {?}px)"
+      "translate(100px, {?}px)",
     );
   });
 
@@ -86,15 +86,15 @@ describe("substituteStyleValue", () => {
 describe("calculatePageScrollPercent", () => {
   test("should calculate the correct scroll percentage", () => {
     Object.defineProperty(document.documentElement, "scrollHeight", {
-      value: 1000,
       configurable: true,
+      value: 1000,
     });
     Object.defineProperty(document.documentElement, "clientHeight", {
       value: 500,
     });
     Object.defineProperty(window, "scrollY", {
-      value: 250,
       configurable: true,
+      value: 250,
     });
 
     expect(calculatePageScrollPercent()).toBe(0.5); // Assuming the scroll is at 50%

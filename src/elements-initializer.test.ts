@@ -1,5 +1,5 @@
-import { initElements, initRootElement } from "./elements-initializer"; // Adjust the import path
 import { scrollManager } from "./config.js";
+import { initElements, initRootElement } from "./elements-initializer"; // Adjust the import path
 import { setListener } from "./listener";
 import { PARALLAX_SCROLLER_STAGE } from "./types";
 

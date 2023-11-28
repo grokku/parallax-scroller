@@ -8,7 +8,7 @@ import {
 } from "./types";
 import { interpolate, substituteStyleValue } from "./utils";
 
-let previousPoints: Record<string, number> = {};
+const previousPoints: Record<string, number> = {};
 
 /**
  * @typedef {Object} Tweening
@@ -29,11 +29,11 @@ let previousPoints: Record<string, number> = {};
 export const setElementKeyframes = (
   props: Array<Record<string, string>>,
   element: ParallaxScrollerElement,
-  constant: number
+  constant: number,
 ) => {
   if (typeof constant !== "number") {
     throw new Error(
-      `Scroll percentage must be an integer, got "${constant}" instead`
+      `Scroll percentage must be an integer, got "${constant}" instead`,
     );
   }
 
@@ -71,7 +71,7 @@ export const sortKeyframes = (element: ParallaxScrollerElement) => {
 const notifyCheckpoint = (
   element: ParallaxScrollerElement,
   point: number,
-  { from, to }: { from: Keyframe; to?: Keyframe }
+  { from, to }: { from: Keyframe; to?: Keyframe },
 ) => {
   const fromWindow = from.constant * window.innerHeight;
   const previousPoint = previousPoints[element.name] ?? -1;
@@ -80,7 +80,7 @@ const notifyCheckpoint = (
     notifyChange(
       element.name,
       from.constant,
-      PARALLAX_SCROLLER_STAGE.scrollForward
+      PARALLAX_SCROLLER_STAGE.scrollForward,
     );
 
     return true;
@@ -90,7 +90,7 @@ const notifyCheckpoint = (
     notifyChange(
       element.name,
       from.constant,
-      PARALLAX_SCROLLER_STAGE.scrollBackward
+      PARALLAX_SCROLLER_STAGE.scrollBackward,
     );
 
     return true;
@@ -103,7 +103,7 @@ const notifyCheckpoint = (
       notifyChange(
         element.name,
         to.constant,
-        PARALLAX_SCROLLER_STAGE.scrollForward
+        PARALLAX_SCROLLER_STAGE.scrollForward,
       );
       return true;
     }
@@ -112,7 +112,7 @@ const notifyCheckpoint = (
       notifyChange(
         element.name,
         to.constant,
-        PARALLAX_SCROLLER_STAGE.scrollBackward
+        PARALLAX_SCROLLER_STAGE.scrollBackward,
       );
       return true;
     }
@@ -132,11 +132,11 @@ const notifyCheckpoint = (
 const notifyChange = (
   name: string,
   constant: number,
-  stage: PARALLAX_SCROLLER_STAGE
+  stage: PARALLAX_SCROLLER_STAGE,
 ) => {
   notify({
-    name,
     checkpoint: constant * 100,
+    name,
     stage,
   });
 };
@@ -154,7 +154,7 @@ const notifyChange = (
 const calculateRelativePercent = (
   point: number,
   fromWindow: number,
-  toWindow: number
+  toWindow: number,
 ) => {
   if (point >= toWindow) {
     return 1;
@@ -178,7 +178,7 @@ const calculateRelativePercent = (
 const interpolateValues = (
   fromValues: Array<number>,
   toValues: Array<number>,
-  percent: number
+  percent: number,
 ) => fromValues.map((from, i) => interpolate(from, toValues[i], percent));
 
 /**
@@ -196,7 +196,7 @@ const applyStyle = (
   element: ParallaxScrollerElement,
   point: number,
   cssProp: string,
-  { from, to }: { from: Keyframe; to?: Keyframe }
+  { from, to }: { from: Keyframe; to?: Keyframe },
 ) => {
   const fromWindow = from.constant * window.innerHeight;
 
@@ -211,17 +211,17 @@ const applyStyle = (
       const relativePercent = calculateRelativePercent(
         point,
         fromWindow,
-        toWindow
+        toWindow,
       );
       const calculatedStyleValues = interpolateValues(
         from.values,
         to?.values,
-        relativePercent
+        relativePercent,
       );
 
       element.node.style.setProperty(
         cssProp,
-        substituteStyleValue(to.template, calculatedStyleValues)
+        substituteStyleValue(to.template, calculatedStyleValues),
       );
 
       return point >= fromWindow && point <= toWindow!;
@@ -238,7 +238,7 @@ const applyStyle = (
     if (from.values.length) {
       element.node.style.setProperty(
         cssProp,
-        substituteStyleValue(from.template, from.values)
+        substituteStyleValue(from.template, from.values),
       );
     } else {
       element.node.style.setProperty(cssProp, from.template);
@@ -263,7 +263,7 @@ export const applyFrameStyle = (
   element: ParallaxScrollerElement,
   point: number,
   cssProp: string,
-  { from, to }: { from: Keyframe; to?: Keyframe }
+  { from, to }: { from: Keyframe; to?: Keyframe },
 ) => {
   const fromWindow = from.constant * window.innerHeight;
   const toWindow = to ? to.constant * window.innerHeight : null;
@@ -293,7 +293,7 @@ export const applyFrameStyle = (
  */
 export const setStylesForKeyframes = (
   element: ParallaxScrollerElement,
-  percent: number
+  percent: number,
 ) => {
   const point = percent * scrollManager.getFullViewHeight();
   const { name } = element;

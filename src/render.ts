@@ -19,7 +19,7 @@ const renderElements = (scrollElements: Array<ParallaxScrollerElement>) => {
   // Only update if the scroll percentage has changed
   if (percent !== lastScrollPercent) {
     scrollElements.forEach((element) =>
-      setStylesForKeyframes(element, percent)
+      setStylesForKeyframes(element, percent),
     );
     lastScrollPercent = percent;
   }
@@ -30,7 +30,7 @@ const renderElements = (scrollElements: Array<ParallaxScrollerElement>) => {
  * @private
  */
 export const loopUpdatePositions = (
-  scrollElements: Array<ParallaxScrollerElement>
+  scrollElements: Array<ParallaxScrollerElement>,
 ) => {
   renderElements(scrollElements);
 
@@ -40,7 +40,7 @@ export const loopUpdatePositions = (
     }
 
     animationFrameId = window.requestAnimationFrame(() =>
-      loopUpdatePositions(scrollElements)
+      loopUpdatePositions(scrollElements),
     );
   } else if (animationFrameId !== null) {
     window.cancelAnimationFrame(animationFrameId);
