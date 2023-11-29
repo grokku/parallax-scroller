@@ -224,15 +224,13 @@ const applyStyle = (
         substituteStyleValue(to.template, calculatedStyleValues),
       );
 
-      return point >= fromWindow && point <= toWindow!;
-    } else {
-      if (point >= toWindow) {
-        element.node.style.setProperty(cssProp, to.template);
-        return true;
-      } else if (point >= fromWindow) {
-        element.node.style.setProperty(cssProp, from.template);
-        return true;
-      }
+      return point >= fromWindow && point <= toWindow;
+    } else if (point >= toWindow) {
+      element.node.style.setProperty(cssProp, to.template);
+      return true;
+    } else if (point >= fromWindow) {
+      element.node.style.setProperty(cssProp, from.template);
+      return true;
     }
   } else if (point >= fromWindow) {
     if (from.values.length) {
