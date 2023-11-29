@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-useless-escape
-const regexPropValue = /\s*(@?[\w\-\[\]]+)\s*:\s*(.+?)\s*(?:;|$)/gi;
+const regexPropValue = /\s*(@?[\w\-[\]]+)\s*:\s*([^;\n]+?)\s*(?:;|$)/gi;
 const regexNumericValue = /[-+]?\d*\.?\d+(e[-+]?\d+)?/gi;
 
 /**
