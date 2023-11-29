@@ -4,6 +4,10 @@ Parallax-Scroller is a versatile JavaScript module that creates captivating
 parallax scrolling effects, perfect for enhancing the visual appeal and
 interactivity of web pages.
 
+## Demo
+
+Check out [Parallax-Scroller in action on CodePen](https://codepen.io/Andrii-Maglovanyi/pen/zYeJZzW)
+
 ## Functionality
 
 - **Data-Driven**: Using `data-` attributes to define animations.
