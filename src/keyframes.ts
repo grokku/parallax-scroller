@@ -241,6 +241,7 @@ const applyStyle = (
     } else {
       element.node.style.setProperty(cssProp, from.template);
     }
+
     return true;
   }
 

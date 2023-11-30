@@ -1,4 +1,4 @@
-const regexPropValue = /\s*(@?[\w\-[\]]+)\s*:\s*([^;\n]+?)\s*(?:;|$)/gi;
+const regexPropValue = /\s*(@?[\w\-[\]]+)\s*:\s*([^;\n][^;]*?)\s*(?:;|$)/gi;
 const regexNumericValue = /[-+]?\d*\.?\d+(e[-+]?\d+)?/gi;
 
 /**
