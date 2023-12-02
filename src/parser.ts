@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-useless-escape
-const regexPropValue = /\s*(@?[\w\-\[\]]+)\s*:\s*(.+?)\s*(?:;|$)/gi;
+const regexPropValue = /\s*([\w-]+)\s*:\s*([^;\n]*);?/gi;
 const regexNumericValue = /[-+]?\d*\.?\d+(e[-+]?\d+)?/gi;
 
 /**
@@ -74,7 +73,7 @@ export const parseKeyframeStyles = (attrValue: string) => {
 
   while ((matches = regexPropValue.exec(attrValue))) {
     const [, prop, value] = matches;
-    props.push({ [prop]: value });
+    props.push({ [prop]: value.trim() });
   }
 
   regexPropValue.lastIndex = 0;

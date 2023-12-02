@@ -29,7 +29,7 @@ const setInitialStyle = (element: ParallaxScrollerElement) => {
 };
 
 const processAttribute = (attr: Attr, element: ParallaxScrollerElement) => {
-  const match = attr.name.match(regexDataAttribute);
+  const match = regexDataAttribute.exec(attr.name);
   if (!match) return false;
 
   const constant = parseInt(match[1], 10) / 100;
